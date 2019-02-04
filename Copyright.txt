@@ -1,0 +1,5 @@
+It's just like the original 2048 game by Gabriele Cirulli. But let's add some time pressure! And use some gravitation. New tiles falls down from top of the game field.
+
+How to play: Use left and right arrow keys to move tiles in the bottom.
+
+URL: Portal
