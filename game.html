@@ -30,23 +30,20 @@
     </div>
     <div class="ride-menu">
         <div class="ride-menu-inner">
-            <p class="ride-menu-gameover-text">You couldn't make it...<br>Don't give up and try again!</p>
+			<p class="ride-menu-game-win-text">You did it! Congratulations!<br>You reward is waiting for you!</p>
+            <p class="ride-menu-game-loose-text">You couldn't make it...<br>Don't give up and try again!</p>
             <div class="ride-button ride-button-newgame" id="ride-button-newgame" onclick="app.gameRestart();">New game</div>
             <div class="ride-button ride-button-resume" id="ride-button-resume" onclick="if (app.isOver) { app.gameRestart(); } else { app.resume(); }">Continue</div>
         </div>
     </div>
-    <p>
-        It's just like the original <a href="http://gabrielecirulli.github.io/2048/" target="_blank">2048</a> game by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>. But let's add some time pressure! And use some gravitation. New tiles falls down from top of the game field.<br>
-    </p>
-    <p>
-        <strong>How to play:</strong> Use <strong>left</strong> and <strong>right</strong> arrow keys to move tiles in the bottom. <!-- Or you can use <strong>swipe</strong> gestures to perform that on your fancy fruity device. -->
-    </p>
     <link rel="stylesheet" href="css/clearsans.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/app.js"></script>
+	<script type="text/javascript" src="../games.js"></script> <!-- BLUR SDK -->
     <script>
         (function () {
             var app = window.app = new ride2048.App({
+				isWin: false,
                 inputManagers: [
                     new ride2048.KeyboardInputManager(),
                     new ride2048.TouchInputManager()/*,
@@ -56,7 +53,18 @@
                     container: '#game-container'
                 }),
                 scoreManager: new ride2048.HTMLScoreManager({
-                    container: '#score'
+                    container: '#score',
+					pointsToWin: 1024,
+					score: function(points)
+					{
+						ride2048.HTMLScoreManager.prototype.score.apply(this, arguments);
+						
+						if (points >= this.pointsToWin)
+						{
+							app.isWin = true;
+							app.gameOver();
+						}
+					}
                 }),
                 dataManager: new ride2048.LocalStorageDataManager(),
                 init: function () {
@@ -101,6 +109,28 @@
                     ride2048.App.prototype.gameOver.apply(this, arguments);
 
                     this.renderer.$container.addClass('is-over');
+					
+					if (this.isWin) {
+						this.renderer.$container.removeClass('is-loose');
+						this.renderer.$container.addClass('is-win');
+						
+						try
+						{
+							texta_win();
+						}
+						catch {}
+					} else {
+						this.renderer.$container.removeClass('is-win');
+						this.renderer.$container.addClass('is-loose');
+						
+						try
+						{
+							texta_close();
+						}
+						catch {}
+					}
+					
+					this.isWin = false;
                 },
                 syncLoad: function () {
                     ride2048.App.prototype.syncLoad.apply(this, arguments);

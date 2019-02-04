@@ -9,15 +9,17 @@ a { color: inherit; }
 .ride-menu { display: none; position: absolute; left: 0; right: 0; top: 90px; height: 650px; text-align: center; }
 .ride-menu:before { content: ''; display: inline-block; vertical-align: middle; width: 0; height: 100%; }
 .ride-menu-inner { display: inline-block; vertical-align: middle; }
-.ride-menu-gameover-text { display: none; font-size: 20px; text-align: center; /*text-shadow: -1px 0 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, 0 1px 0 #fff; */}
+.ride-menu-game-win-text,
+.ride-menu-game-loose-text { display: none; font-size: 20px; text-align: center; /*text-shadow: -1px 0 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, 0 1px 0 #fff; */}
 .ride-button-newgame,
 .ride-button-resume { display: block; width: 200px; padding-top: 5px; margin: 20px auto; font-size: 26px; text-transform: uppercase; }
 
 .ride-container.is-paused + .ride-menu { display: block; }
 .ride-container.is-over + .ride-menu .ride-button-resume { display: none; }
-.ride-container.is-over + .ride-menu .ride-menu-gameover-text { display: block; }
+.ride-container.is-over.is-win + .ride-menu .ride-menu-game-win-text { display: block; }
+.ride-container.is-over.is-loose + .ride-menu .ride-menu-game-loose-text { display: block; }
 
-h1.ride-title { position: relative; top: 5px; float: left; margin: 0 0 20px; font-size: 46px; line-height: 50px; font-weight: bold; }
+h1.ride-title { position: relative; top: 5px; left: 50px; float: left; margin: 0 0 20px; font-size: 40px; line-height: 50px; font-weight: bold; }
 .ride-score { float: right; display: block; margin: 0 0 20px; padding: 0; list-style: none; }
 .ride-score-block { position: relative; display: inline-block; vertical-align: top; background: #bbada0; padding: 9px 6px; min-width: 70px; height: 32px; border-radius: 3px; font-size: 25px; line-height: 25px; font-weight: bold; color: #fff; text-align: center; }
 .ride-score-block:before { content: ''; display: block; font-size: 13px; line-height: 13px; color: #eee4da; text-transform: uppercase; }
@@ -108,7 +110,7 @@ h1.ride-title { position: relative; top: 5px; float: left; margin: 0 0 20px; fon
 @media screen and (max-width: 440px) {
     body { width: 320px; padding: 10px 0; overflow: hidden; font-size: 18px; }
     p { margin: .5em 0; }
-    h1.ride-title { float: none; margin-bottom: 10px; font-size: 40px; line-height: 40px; text-align: center; }
+    h1.ride-title { left: auto; float: none; margin-bottom: 10px; font-size: 40px; line-height: 40px; text-align: center; }
     .ride-score { float: none; margin-bottom: 10px; text-align: center; }
     .ride-menu { top: 120px; height: 495px; }
     .ride-container {
